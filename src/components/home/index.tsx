@@ -2,6 +2,9 @@ import styles from "./home.module.css";
 import { Controller, useForm } from "react-hook-form";
 import { useMemo } from "react";
 import dynamic from "next/dynamic";
+import Select from "../shared/form/select";
+import { Options } from "react-select";
+
 interface Inputs {
   name: string;
   location: { lat: number; lng: number };
@@ -9,9 +12,18 @@ interface Inputs {
   Logo: string;
 }
 
+interface Option {
+  value: string;
+  label: string;
+}
 const defaultValues: Partial<Inputs> = {
   location: { lat: 51.505, lng: -0.09 },
 };
+
+const options: Options<Option> = [
+  { value: "business", label: "Business" },
+  { value: "personal", label: "Personal" },
+];
 
 const Home: React.FC = () => {
   const { register, handleSubmit, control } = useForm<Inputs>({
@@ -42,11 +54,21 @@ const Home: React.FC = () => {
             control={control}
             render={({ field }) => <Map className={styles.map} {...field} />}
           />
+          <Controller
+            name="locationType"
+            control={control}
+            render={({ field }) => {
+              return (
+                <Select
+                  {...field}
+                  value={options.find((i) => i.value === field.value)}
+                  onChange={(value) => field.onChange(value?.value)}
+                  options={options}
+                />
+              );
+            }}
+          />
           <input type="submit" value="submit form" />
-          {/* <label>
-            Location on map:
-            <MapInput {...register({ required: true })} name="location" />
-          </label> */}
         </form>
       </div>
     </main>
