@@ -1,12 +1,8 @@
-import { createStore, AnyAction, Store } from "redux";
+import { createStore, AnyAction, Store, Reducer } from "redux";
 import { createWrapper, Context, HYDRATE } from "next-redux-wrapper";
-import rootReducer from "./rootReducer";
+import rootReducer, { State } from "./rootReducer";
 
-export interface State {
-  tick?: string;
-}
-
-const reducer = (state: State = {}, action: AnyAction) => {
+const reducer: Reducer<State, AnyAction> = (state, action) => {
   switch (action.type) {
     case HYDRATE:
       return { ...state, ...action.payload };
@@ -15,7 +11,16 @@ const reducer = (state: State = {}, action: AnyAction) => {
       return rootReducer(state, action);
   }
 };
+declare global {
+  interface Window {
+    __REDUX_DEVTOOLS_EXTENSION__?: any;
+  }
+}
 
-const makeStore = (context: Context) => createStore(reducer);
+const makeStore = (context: Context) => {
+  if (typeof window !== "undefined")
+    return createStore(reducer, window?.__REDUX_DEVTOOLS_EXTENSION__?.());
+  else return createStore(reducer);
+};
 
 export const wrapper = createWrapper<Store<State>>(makeStore, { debug: true });

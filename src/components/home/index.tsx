@@ -6,6 +6,9 @@ import Select from "../shared/form/select";
 import { Options } from "react-select";
 import InputFile from "../shared/form/input-file";
 import Button from "../shared/button";
+import { useDispatch } from "react-redux";
+import { addToLocations } from "../../redux/locations/actions";
+import { readFileAsync } from "../../utils";
 
 interface Inputs {
   name: string;
@@ -31,19 +34,17 @@ const options: Options<Option> = [
 ];
 
 const Home: React.FC = () => {
-  const {
-    register,
-    handleSubmit,
-    reset,
-    control,
-    formState: { isDirty },
-  } = useForm<Inputs>({
+  const { register, handleSubmit, reset, control } = useForm<Inputs>({
     defaultValues,
   });
-  const onSubmit = (data: any) => {
-    // const url = window.URL.createObjectURL(data.logo);
-    console.log(data);
+
+  const dispatch = useDispatch();
+
+  const onSubmit = async (data: Inputs) => {
+    const logo = await readFileAsync(data.logo);
+    dispatch(addToLocations({ ...data, logo: logo }));
   };
+
   const Map = useMemo(
     () => dynamic(() => import("../shared/form/map-input"), { ssr: false }),
     []
@@ -52,6 +53,7 @@ const Home: React.FC = () => {
   const onCancel = () => {
     reset(defaultValues);
   };
+
   return (
     <main>
       <div className={styles.container}>
@@ -80,8 +82,6 @@ const Home: React.FC = () => {
                 control={control}
                 rules={{ required: true }}
                 render={({ field }) => {
-                  console.log(field.value);
-
                   return (
                     <Select
                       {...field}
