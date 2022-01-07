@@ -1,12 +1,4 @@
-import {
-  MapConsumer,
-  MapContainer,
-  Marker,
-  Popup,
-  TileLayer,
-  useMap,
-  useMapEvent,
-} from "react-leaflet";
+import { MapConsumer, MapContainer, Marker, TileLayer } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { useEffect } from "react";
 
@@ -15,17 +7,18 @@ import iconUrl from "leaflet/dist/images/marker-icon.png";
 import shadowUrl from "leaflet/dist/images/marker-shadow.png";
 import { LeafletMouseEvent } from "leaflet";
 
-interface Location {
+interface LatLng {
   lat: number;
   lng: number;
 }
 interface Props {
   className?: string;
-  value?: Location;
-  onChange?(value: Location): void;
+  value?: LatLng;
+  onChange?(value: LatLng): void;
+  markers?: any;
 }
 
-const MapInput: React.FC<Props> = ({ className, value, onChange }) => {
+const MapInput: React.FC<Props> = ({ className, value, onChange, markers }) => {
   // fix default marker icon
   useEffect(() => {
     const L = require("leaflet");
@@ -57,11 +50,8 @@ const MapInput: React.FC<Props> = ({ className, value, onChange }) => {
         }}
       </MapConsumer>
       <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-      <Marker position={value || [51.505, -0.09]}>
-        <Popup>
-          A pretty CSS3 popup. <br /> Easily customizable.
-        </Popup>
-      </Marker>
+      {value && <Marker position={value || [51.505, -0.09]} />}
+      {markers}
     </MapContainer>
   );
 };

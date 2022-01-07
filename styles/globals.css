@@ -14,3 +14,19 @@ a {
 * {
   box-sizing: border-box;
 }
+
+/* leaflet popup */
+.leaflet-popup-content-wrapper {
+  border-radius: 0px !important;
+  border: 1px solid black !important;
+}
+.leaflet-popup-tip-container {
+  display: none;
+}
+.leaflet-popup-close-button {
+  display: none;
+}
+.leaflet-popup-content {
+  margin: 0 !important;
+  padding: 0 !important;
+}

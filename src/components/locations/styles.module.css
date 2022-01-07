@@ -1,0 +1,28 @@
+.map {
+  width: 100%;
+  min-height: 400px;
+}
+.popup {
+  margin: 2px;
+  width: 200px;
+  border: 1px solid #dff1d8;
+  font-size: 15px;
+  border-radius: 5px;
+  overflow: hidden;
+}
+.popup .popupTitle {
+  background-color: #dff1d8;
+  padding: 5px;
+  font-weight: bold;
+  color: #5db960;
+}
+.popup .popupContent {
+  padding: 5px;
+}
+.popupActions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 5px;
+  gap: 5px;
+}

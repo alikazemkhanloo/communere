@@ -9,6 +9,7 @@ import Button from "../shared/button";
 import { useDispatch } from "react-redux";
 import { addToLocations } from "../../redux/locations/actions";
 import { readFileAsync } from "../../utils";
+import { useRouter } from "next/router";
 
 interface Inputs {
   name: string;
@@ -28,7 +29,7 @@ const defaultValues: Partial<Inputs> = {
   name: "",
 };
 
-const options: Options<Option> = [
+export const options: Options<Option> = [
   { value: "business", label: "Business" },
   { value: "personal", label: "Personal" },
 ];
@@ -39,10 +40,13 @@ const Home: React.FC = () => {
   });
 
   const dispatch = useDispatch();
+  const router = useRouter();
 
   const onSubmit = async (data: Inputs) => {
     const logo = await readFileAsync(data.logo);
     dispatch(addToLocations({ ...data, logo: logo }));
+    reset(defaultValues);
+    router.push("/locations");
   };
 
   const Map = useMemo(

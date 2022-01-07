@@ -4,8 +4,10 @@
   background-color: #5cbfde;
   border: none;
   padding: 10px;
+  min-width: 65px;
   cursor: pointer;
 }
+
 .button.disabled {
   background-color: gray;
 }
