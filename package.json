@@ -8,6 +8,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@svgr/webpack": "^6.1.2",
     "@types/react-leaflet": "^2.8.2",
     "leaflet": "^1.7.1",
     "next": "12.0.7",

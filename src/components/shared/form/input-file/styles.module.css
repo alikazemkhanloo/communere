@@ -1,0 +1,32 @@
+.input {
+  display: none;
+  z-index: -1;
+}
+
+.container {
+  border: #1977d0 solid 1px;
+  border-radius: 5px;
+  overflow: hidden;
+}
+.title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #1977d0;
+  color: white;
+}
+.iconContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #8dbbe9;
+  color: white;
+}
+.iconContainer svg {
+  height: 50px;
+  width: 50px;
+  margin: 5px 0;
+}
+.iconContainer path {
+  fill: #1b78d1;
+}

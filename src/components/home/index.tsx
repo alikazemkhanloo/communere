@@ -4,12 +4,13 @@ import { useMemo } from "react";
 import dynamic from "next/dynamic";
 import Select from "../shared/form/select";
 import { Options } from "react-select";
+import InputFile from "../shared/form/input-file";
 
 interface Inputs {
   name: string;
   location: { lat: number; lng: number };
   locationType: string;
-  Logo: string;
+  logo: File;
 }
 
 interface Option {
@@ -30,6 +31,7 @@ const Home: React.FC = () => {
     defaultValues,
   });
   const onSubmit = (data: any) => {
+    // const url = window.URL.createObjectURL(data.logo);
     console.log(data);
   };
   const Map = useMemo(
@@ -49,14 +51,18 @@ const Home: React.FC = () => {
               name="name"
             />
           </label>
-          <Controller
-            name="location"
-            control={control}
-            render={({ field }) => <Map className={styles.map} {...field} />}
-          />
+          <label>
+            Location on map:
+            <Controller
+              name="location"
+              control={control}
+              render={({ field }) => <Map className={styles.map} {...field} />}
+            />
+          </label>
           <Controller
             name="locationType"
             control={control}
+            rules={{ required: true }}
             render={({ field }) => {
               return (
                 <Select
@@ -68,6 +74,14 @@ const Home: React.FC = () => {
               );
             }}
           />
+          <div>
+            Logo:
+            <Controller
+              name="logo"
+              control={control}
+              render={({ field }) => <InputFile {...field} />}
+            />
+          </div>
           <input type="submit" value="submit form" />
         </form>
       </div>
