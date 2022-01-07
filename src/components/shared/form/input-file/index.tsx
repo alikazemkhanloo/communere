@@ -7,8 +7,6 @@ interface Props {
   value: { name: string };
 }
 const InputFile: React.FC<Props> = (props) => {
-  console.log(props);
-
   return (
     <label>
       <div className={styles.container}>

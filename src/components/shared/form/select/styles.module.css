@@ -1,0 +1,8 @@
+.downArrow {
+  width: 0;
+  height: 0;
+  --size: 10px;
+  border-left: var(--size) solid transparent;
+  border-right: var(--size) solid transparent;
+  border-top: var(--size) solid white;
+}

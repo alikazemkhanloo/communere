@@ -5,7 +5,8 @@
 
 .container {
   border: #1977d0 solid 1px;
-  border-radius: 5px;
+  border-radius: 3px;
+  cursor: pointer;
   overflow: hidden;
 }
 .title {
