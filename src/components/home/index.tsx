@@ -72,7 +72,8 @@ const Home: React.FC<Props> = ({ index }) => {
   );
 
   const onCancel = () => {
-    reset(defaultValues);
+    if (typeof index === "undefined") reset(defaultValues);
+    else router.back();
   };
 
   return (
