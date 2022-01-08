@@ -1,1 +1,2 @@
 export const ADD_TO_LOCATIONS = "ADD_TO_LOCATIONS";
+export const UPDATE_LOCATION = "UPDATE_LOCATION";

@@ -1,15 +1,16 @@
 import styles from "./home.module.css";
 import { Controller, useForm } from "react-hook-form";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import dynamic from "next/dynamic";
 import Select from "../shared/form/select";
 import { Options } from "react-select";
 import InputFile from "../shared/form/input-file";
 import Button from "../shared/button";
-import { useDispatch } from "react-redux";
-import { addToLocations } from "../../redux/locations/actions";
-import { readFileAsync } from "../../utils";
+import { useDispatch, useSelector } from "react-redux";
+import { addToLocations, updateLocation } from "../../redux/locations/actions";
+import { dataUrlToFile, readFileAsync } from "../../utils";
 import { useRouter } from "next/router";
+import { State } from "../../redux/rootReducer";
 
 interface Inputs {
   name: string;
@@ -34,9 +35,21 @@ export const options: Options<Option> = [
   { value: "personal", label: "Personal" },
 ];
 
-const Home: React.FC = () => {
+interface Props {
+  index?: number;
+}
+
+const Home: React.FC<Props> = ({ index }) => {
+  const locations = useSelector((state: State) => state.locations);
+  let values = defaultValues;
+
+  if (typeof index !== "undefined") {
+    const location = locations[index];
+    values = { ...location, logo: dataUrlToFile(location.logo) };
+  }
+
   const { register, handleSubmit, reset, control } = useForm<Inputs>({
-    defaultValues,
+    defaultValues: values,
   });
 
   const dispatch = useDispatch();
@@ -44,7 +57,11 @@ const Home: React.FC = () => {
 
   const onSubmit = async (data: Inputs) => {
     const logo = await readFileAsync(data.logo);
-    dispatch(addToLocations({ ...data, logo: logo }));
+    if (typeof index === "undefined") {
+      dispatch(addToLocations({ ...data, logo: logo }));
+    } else {
+      dispatch(updateLocation({ ...data, logo: logo }, index));
+    }
     reset(defaultValues);
     router.push("/locations");
   };
@@ -72,6 +89,7 @@ const Home: React.FC = () => {
                 type="text"
                 name="name"
               />
+
               <div>Location on map:</div>
               <Controller
                 name="location"
@@ -80,6 +98,7 @@ const Home: React.FC = () => {
                   <Map className={styles.map} {...field} />
                 )}
               />
+
               <div>Location type:</div>
               <Controller
                 name="locationType"
@@ -100,8 +119,8 @@ const Home: React.FC = () => {
                   );
                 }}
               />
-              <div>Logo:</div>
 
+              <div>Logo:</div>
               <Controller
                 name="logo"
                 control={control}

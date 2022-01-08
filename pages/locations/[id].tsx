@@ -1,7 +1,13 @@
 import Head from "next/head";
-import Home from "../src/components/home";
+import { useRouter } from "next/router";
+import Home from "../../src/components/home";
 
 export default function Index() {
+  const router = useRouter();
+  const { query } = router;
+  const id = query.id as string;
+  const index = parseInt(id) ?? undefined;
+
   return (
     <>
       <Head>
@@ -10,7 +16,7 @@ export default function Index() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Home />
+      <Home index={index} />
     </>
   );
 }

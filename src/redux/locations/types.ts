@@ -1,4 +1,4 @@
-import { ADD_TO_LOCATIONS } from "./constants";
+import { ADD_TO_LOCATIONS, UPDATE_LOCATION } from "./constants";
 
 export interface Location {
   name: string;
@@ -6,7 +6,12 @@ export interface Location {
   locationType: string;
   logo: string;
 }
-export interface Action {
+interface AddAction {
   type: typeof ADD_TO_LOCATIONS;
-  payload: Location;
+  payload: { location: Location };
 }
+export interface UpdateAction {
+  type: typeof UPDATE_LOCATION;
+  payload: { location: Location; index: number };
+}
+export type Action = AddAction | UpdateAction;

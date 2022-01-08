@@ -1,6 +1,6 @@
 import dynamic from "next/dynamic";
 import Head from "next/head";
-const Locations = dynamic(() => import("../src/components/locations"), {
+const Locations = dynamic(() => import("../../src/components/locations"), {
   ssr: false,
 });
 export default function Index() {
