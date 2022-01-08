@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import { Marker, Popup, useMap } from "react-leaflet";
 import { Location } from "../../redux/locations/types";
 
-import { options } from "../home";
+import { options } from "../form";
 import Button from "../shared/button";
 import styles from "./styles.module.css";
 

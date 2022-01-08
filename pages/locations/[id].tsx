@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
-import Home from "../../src/components/home";
+import Form from "../../src/components/form";
 
 export default function Index() {
   const router = useRouter();
@@ -16,7 +16,7 @@ export default function Index() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Home index={index} />
+      <Form index={index} />
     </>
   );
 }

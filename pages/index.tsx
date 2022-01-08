@@ -1,5 +1,5 @@
 import Head from "next/head";
-import Home from "../src/components/home";
+import Form from "../src/components/form";
 
 export default function Index() {
   return (
@@ -10,7 +10,7 @@ export default function Index() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Home />
+      <Form />
     </>
   );
 }

@@ -1,5 +1,4 @@
 import ReactSelect, { components } from "react-select";
-import { Option } from "../../../home";
 import styles from "./styles.module.css";
 
 const Select: ReactSelect = (props) => {

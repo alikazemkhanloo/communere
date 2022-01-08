@@ -1,6 +1,6 @@
-import styles from "./home.module.css";
+import styles from "./form.module.css";
 import { Controller, useForm } from "react-hook-form";
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import dynamic from "next/dynamic";
 import Select from "../shared/form/select";
 import { Options } from "react-select";
@@ -39,7 +39,7 @@ interface Props {
   index?: number;
 }
 
-const Home: React.FC<Props> = ({ index }) => {
+const Form: React.FC<Props> = ({ index }) => {
   const locations = useSelector((state: State) => state.locations);
   let values = defaultValues;
 
@@ -144,4 +144,4 @@ const Home: React.FC<Props> = ({ index }) => {
     </main>
   );
 };
-export default Home;
+export default Form;
